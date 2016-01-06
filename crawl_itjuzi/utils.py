@@ -31,7 +31,7 @@ def get_job_url(response):
 
             if i.xpath('./text()').re(job_regular):
                 job_url_tmp = i.xpath('./@href').extract()
-                if job_url_tmp and job_url_tmp[0] != '#':
+                if job_url_tmp and job_url_tmp[0] != '#' and job_url_tmp[0].startswith('http'):
                     job_url = job_url_tmp[0]
                     break
 
