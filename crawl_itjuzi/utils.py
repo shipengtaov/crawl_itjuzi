@@ -12,6 +12,7 @@ def get_job_url(response):
         u'诚聘英才',
         u'工作职位',
         u'招贤纳士',
+        u'工作机会',
     ]
     job_text_min_length = 2
     job_text_max_length = 10
@@ -31,7 +32,11 @@ def get_job_url(response):
 
             if i.xpath('./text()').re(job_regular):
                 job_url_tmp = i.xpath('./@href').extract()
-                if job_url_tmp and job_url_tmp[0] != '#' and job_url_tmp[0].startswith('http'):
+
+                if job_url_tmp \
+                    and job_url_tmp[0] != '#' \
+                    and not job_url_tmp[0] .startswith('javascript') \
+                    and not job_url_tmp[0].startswith('mailto'):
                     job_url = job_url_tmp[0]
                     break
 
