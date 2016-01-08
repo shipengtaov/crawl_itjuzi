@@ -57,11 +57,10 @@ class CompanySpider(scrapy.Spider):
         item = {}
 
         infohead = response.xpath('//div[@class="rowhead"]')
-        item['product_name'] = infohead.xpath('.//span[@class="title"]/text()').extract()[0].strip()
+        item['product_name'] = infohead.xpath('.//span[@class="title"]//text()').extract()[0].strip()
 
-        address_link = infohead.xpath('./div[@class="picinfo"]/div[contains(@class, "c-gray-aset")]')
-        item['address'] = ' '.join([i.strip() for i in address_link.xpath('./div[contains(@class, "marr10")]//text()').extract()])
-        item['url'] = address_link.xpath('./div[contains(@class, "linkset")]//i[contains(@class, "fa-link")]/../../@href').extract()[0]
+        item['address'] = ' '.join([i.strip() for i in infohead.xpath('.//span[contains(@class, "loca")]/a/text()').extract()])
+        item['url'] = infohead.xpath('.//a[@class="weblink"]/@href').extract()[0]
 
         des_more = response.xpath('//div[@class="boxed"]/div[@class="main"]//div[@class="des-more"]//span/text()').extract()
         item['company_name'] = des_more[0].strip()
