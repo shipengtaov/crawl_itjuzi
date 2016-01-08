@@ -34,9 +34,11 @@ def get_job_url(response):
                 job_url_tmp = i.xpath('./@href').extract()
 
                 if job_url_tmp \
-                    and job_url_tmp[0] != '#' \
-                    and not job_url_tmp[0] .startswith('javascript') \
-                    and not job_url_tmp[0].startswith('mailto'):
+                        and job_url_tmp[0] != '#' \
+                        and not job_url_tmp[0] .startswith('javascript:') \
+                        and not job_url_tmp[0].startswith('mailto:') \
+                        and not job_url_tmp[0].startswith('tel:') \
+                        and not job_url_tmp[0].startswith('fax:'):
                     job_url = job_url_tmp[0]
                     break
 
